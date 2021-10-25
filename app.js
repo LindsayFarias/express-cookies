@@ -21,8 +21,8 @@ app.post('/login', (req, res) => {
 
 app.get('/hello', (req, res) => {
 
-    res.json(`Hello ${req.cookies.name}`)
-    
+    res.json(`Welcome ${req.cookies.name}!`)
+
 })
 
 let port = 8080
