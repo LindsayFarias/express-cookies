@@ -1,22 +1,29 @@
 const express = require('express')
 const app = express();
-const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+app.use(express.urlencoded({extended: true}));
+app.use(express.json());
 app.use(cookieParser());
 
 app.post('/login', (req, res) => {
     var opts = {
         maxAge: 9000000
     }
-    res.cookie('name', req.cookies.cookieName)
-    res.end();
+    let newUser = req.body
+    if(
+        newUser.name
+    ){
+        res.cookie('name', newUser.name, opts )
+    }
+    res.redirect('/hello')
 })
 
 app.get('/hello', (req, res) => {
 
+    res.json(`Hello ${req.cookies.name}`)
+    
 })
+
 let port = 8080
 app.listen(port, () => console.log(`Cookie app listening at http://localhost:${port}`));
